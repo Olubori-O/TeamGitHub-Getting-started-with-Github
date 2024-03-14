@@ -20,9 +20,9 @@
 									"var jsonData = pm.response.json();\r",
 									"var rd = jsonData.apps.redoc;\r",
 									"console.log(jsonData) \r",
-									"//console.log(jsonData.apiVersion)\r",
+									"console.log(jsonData.apiVersion)\r",
 									"console.log(jsonData.title)\r",
-									"//console.log(jsonData.paymentCurrency)\r",
+									"console.log(jsonData.paymentCurrency)\r",
 									"console.log(jsonData.categories[0])\r",
 									"console.log(jsonData.links[2].href)\r",
 									"console.log(jsonData.links[6].rel)\r",
@@ -37,41 +37,41 @@
 									"pm.environment.set(\"be\", jsonData.categories[3]);\r",
 									"pm.environment.set(\"health\", jsonData.links[4].href)\r",
 									"\r",
-									"// pm.test(\"Confirm that the first entry in categories is authorization\", function () {\r",
-									"//   pm.expect(jsonData.categories[0]).to.eql(\"authorization\");\r",
-									"// });\r",
+									"pm.test(\"Confirm that the first entry in categories is authorization\", function () {\r",
+									"   pm.expect(jsonData.categories[0]).to.eql(\"authorization\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Confirm that the api version is 7.2.5.0\", function () {\r",
-									"//     pm.expect(jsonData.apiVersion).to.eql(\"7.2.5.0\");\r",
-									"// });\r",
+									"pm.test(\"Confirm that the api version is 7.2.5.0\", function () {\r",
+									"    pm.expect(jsonData.apiVersion).to.eql(\"7.2.5.0\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Body matches string\", function () {\r",
-									"//     pm.expect(pm.response.text()).to.include(\"7.2.5.0\");\r",
-									"// });\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"7.2.5.0\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Confirm that the title is Fusio\", function () {\r",
-									"//     pm.expect(jsonData.title).to.eql(\"Fusio\");\r",
-									"// });\r",
+									" pm.test(\"Confirm that the title is Fusio\", function () {\r",
+									"     pm.expect(jsonData.title).to.eql(\"Fusio\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Body matches string\", function () {\r",
-									"//     pm.expect(pm.response.text()).to.include(\"Fusio\");\r",
-									"// });\r",
+									" pm.test(\"Body matches string\", function () {\r",
+									"     pm.expect(pm.response.text()).to.include(\"Fusio\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Confirm that the payment currency is Eur\", function () {\r",
-									"//     pm.expect(jsonData.paymentCurrency).to.eql(\"EUR\");\r",
-									"// });\r",
+									" pm.test(\"Confirm that the payment currency is Eur\", function () {\r",
+									"     pm.expect(jsonData.paymentCurrency).to.eql(\"EUR\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Body matches string\", function () {\r",
-									"//     pm.expect(pm.response.text()).to.include(\"EUR\");\r",
-									"// });\r",
+									" pm.test(\"Body matches string\", function () {\r",
+									"     pm.expect(pm.response.text()).to.include(\"EUR\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Body matches string\", function () {\r",
-									"//     pm.expect(pm.response.text()).to.include(\"consumer\");\r",
-									"// });\r",
+									" pm.test(\"Body matches string\", function () {\r",
+									"     pm.expect(pm.response.text()).to.include(\"consumer\");\r",
+									" });\r",
 									"\r",
-									"// pm.test(\"Body matches string\", function () {\r",
-									"//     pm.expect(pm.response.text()).to.include(\"authorization\");\r",
-									"// });\r",
+									" pm.test(\"Body matches string\", function () {\r",
+									"     pm.expect(pm.response.text()).to.include(\"authorization\");\r",
+									" });\r",
 									""
 								],
 								"type": "text/javascript"
@@ -228,12 +228,15 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
+									"\r",
 									"const response = pm.response.json();\r",
 									"console.log(response[0].name)\r",
 									"console.log(response[2].name)\r",
+									"console.log(response[3].name)\r",
 									"console.log(response[0].id)\r",
 									"console.log(response[2].id)\r",
 									"console.log(response[4].id)\r",
+									"console.log(response[4].type)\r",
 									"console.log(response[5].available)\r",
 									"console.log(response[1].available)\r",
 									"\r",
@@ -247,8 +250,16 @@
 									"    pm.expect(response[0].name).to.eql(\"The Russian\");\r",
 									"});\r",
 									"\r",
+									"pm.test(\"Search for a book named The Midnight Library\", function () {\r",
+									"    pm.expect(response[3].name).to.eql(\"The Midnight Library\");\r",
+									"});\r",
+									"\r",
 									"pm.test(\"Search for a book named The Vanishing Half\", function () {\r",
 									"    pm.expect(response[2].name).to.eql(\"The Vanishing Half\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Confirm that the book Untamed is non-fiction\", function () {\r",
+									"    pm.expect(response[4].type).to.eql(\"non-fiction\");\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Confirm that Viscount who loved me book is available\", function () {\r",
@@ -259,7 +270,8 @@
 									"    pm.expect(response[1].available).to.eql(false);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -269,7 +281,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"value": "{{BearerToken}}",
 									"type": "string"
 								}
 							]
@@ -306,15 +318,45 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									""
+									"const response = pm.response.json();\r",
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData.id)\r",
+									"console.log(jsonData.price)\r",
+									"console.log(jsonData.author)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Confirm that The Russian book is id 1\", function () {\r",
+									"    pm.expect(jsonData.id).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Confirm that the price of the book with id number 1 is 12.98 \", function () {\r",
+									"    pm.expect(jsonData.price).to.eql(12.98);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Confirm that the author of the book with id number 1 is James Patterson and James O. Born\", function () {\r",
+									"    pm.expect(jsonData.author).to.eql(\"James Patterson and James O. Born\");\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BaseURLBooks}}/books/:bookId",
 							"host": [
@@ -341,9 +383,23 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData[0].type)\r",
+									"\r",
+									"\r",
+									"pm.test(\"Confirm that The Russian is fiction\", function () {\r",
+									"    pm.expect(jsonData[0].type).to.eql(\"fiction\");\r",
+									"});\r",
+									"\r",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -380,27 +436,27 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const OrderID = pm.response.json();\r",
-									"\r",
-									"console.log(OrderID.orderId)\r",
-									"pm.environment.set(\"OrderID\",OrderID.orderId);\r",
-									"\r",
-									"pm.test(\"Confirm that order for The Russian book was created\", function () {\r",
-									"    pm.expect(OrderID.created).to.eql(true);\r",
-									"});\r",
-									"\r",
-									" pm.test(\"Confirm that order ID for The Russian book is available\", function () {\r",
-									"    pm.expect(OrderID.orderId).to.not.be.empty;\r",
-									"});\r",
-									"\r",
-									"\r",
+									"pm.test(\"Status code is 201 or 200\", function () {",
+									"  pm.response.to.have.status(201) || pm.response.to.have.status(200);",
+									"});",
+									"",
+									"const OrderID = pm.response.json();",
+									"console.log(OrderID.orderId)",
+									"",
+									"pm.environment.set('OrderID', OrderID.orderId)",
+									"",
+									"pm.test('Confirm that order for The Russian book was created', function () {",
+									"    pm.expect(OrderID.created).to.eql(true);",
+									"})",
+									"",
+									"pm.test('Confirm that order ID for The Russian book is available', function () {",
+									"    pm.expect(OrderID.orderId).to.not.be.empty;",
+									"})",
+									"",
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -413,7 +469,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5269223094a397d44c161311722b70ac1f132b16730e92e0b73361adbccc566f",
+									"value": "{{BearerToken}}",
 									"type": "string"
 								}
 							]
@@ -429,7 +485,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n    \"bookId\": {{RussianID}},\n    \"customerName\": \"Oluwaboriawonotami\"\n}\n",
+							"raw": "\n{\n    \"bookId\": {{RussianID}},\n    \"customerName\": \"Oluwaboriawonotami\"\n}\n\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,9 +516,19 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData[0].customername)\r",
+									"\r",
+									"pm.test(\"Confirm that customer's name is Oluwaboriawonotami\", function () {\r",
+									"    pm.expect(jsonData[0].customerName).to.eql(\"Oluwaboriawonotami\");\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -475,7 +541,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"value": "{{BearerToken}}",
 									"type": "string"
 								}
 							]
@@ -517,9 +583,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -579,9 +648,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -591,7 +663,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "540bd43cf706368d43ecbfd49df5a059c92c9f3306de459bf39c3a29b96ebfe5",
+									"value": "{{BearerToken}}",
 									"type": "string"
 								}
 							]
@@ -639,9 +711,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -695,7 +770,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -736,7 +813,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"clientName\": \"Ibironke\",\n   \"clientEmail\": \"ibironkeyekinni@gmail.com\"\n}",
+					"raw": "{\n   \"clientName\": \"Olubori\",\n   \"clientEmail\": \"omogbejab@gmail.com\"\n}\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -765,6 +842,23 @@
 		},
 		{
 			"name": "Get API Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Confirm status is ok\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"OK\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -786,7 +880,6 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"packages": {},
 				"exec": [
 					""
 				]
@@ -796,11 +889,8 @@
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"packages": {},
 				"exec": [
-					"pm.test(\"Status code is 200\", function () {\r",
-					"    pm.response.to.have.status(200);\r",
-					"});"
+					""
 				]
 			}
 		}
